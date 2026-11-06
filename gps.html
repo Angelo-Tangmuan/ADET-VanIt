@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VanIt | GPS Sharing</title>
+    <meta name="theme-color" content="#0b2545">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+        <header class="header">
+            <div>
+                <p class="header-label">Van ABC 1234</p>
+                <h1 class="header-title">GPS Sharing</h1>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="content">
+
+                <!-- GPS ON / OFF banner (JS swaps gps-on / gps-off) -->
+                <div class="gps-banner gps-off" id="gps-banner">
+                    <span id="gps-banner-text">GPS sharing: OFF</span>
+                </div>
+
+                <div class="card-vanit">
+                    <div class="field-label mb-0">Last location sent</div>
+                    <div class="d-flex flex-column gap-2">
+                        <div class="data-row"><span>Latitude</span><span class="data-value" id="val-lat">---</span></div>
+                        <div class="data-row"><span>Longitude</span><span class="data-value" id="val-lng">---</span></div>
+                        <div class="data-row"><span>Sent</span><span class="data-value" id="val-sent">---</span></div>
+                    </div>
+                </div>
+
+                <p class="text-muted-custom small ms-1 mb-0">Keep the app open while on the road.</p>
+
+                <div class="card-vanit">
+                    <div class="field-label mb-0">Enable Location Service</div>
+                    <button type="button" class="status-btn gps-off-btn" id="status-btn" aria-pressed="false">Status: Disabled</button>
+                </div>
+
+                <!-- Only visible while GPS is ON -->
+                <div class="card-vanit page-action" id="departure" hidden>
+                    <div class="field-label mb-0">Departure</div>
+                    <button type="button" class="btn btn-vanit-out" data-bs-toggle="modal" data-bs-target="#confirm-out">Confirm OUT</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Confirmation pop-up (Bootstrap modal, styled by .modal-confirm) -->
+    <div class="modal fade" id="confirm-out" tabindex="-1" aria-labelledby="confirm-out-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-confirm">
+            <div class="modal-content">
+                <h2 class="modal-title" id="confirm-out-title">Set status to OUT?</h2>
+                <p class="text-muted-custom small mb-0">Van ABC 1234 will be marked as departed. The OUT time will be recorded in the departure history.</p>
+                <a href="vaninfo.html" class="btn btn-confirm btn-confirm-out">Yes, Set OUT</a>
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="gps.js"></script>
+</body>
+</html>
