@@ -1,19 +1,44 @@
-/* ---------- Colors ---------- */
+/* =====================================================================
+   VanIt | style.css
+   One stylesheet for every page.
+
+   Layout of this file:
+     1. Colors
+     2. Shared styles (all screen sizes)
+     3. Desktop only  (min-width: 1281px)
+     4. Tablet/Phone  (max-width: 1280px)  <- matches the Figma phone frames
+   ===================================================================== */
+
+
+/* ---------- 1. Colors ---------- */
 :root {
     --navy: #0b2545;
+    --navy-hover: #123663;
     --yellow: #f5b700;
     --cream: #faf8f2;
-    --nav-text: #c9d3e0;
     --muted: #5f6b7a;
+    --line: #e5e7eb;        /* thin dividers between list rows */
+    --field-border: #d9e0ea;
+    --toggle-bg: #e9eef5;   /* Role/Route toggle and map background tone */
+    --green: #2e7d32;
+    --green-bg: #e8f5e9;
+    --orange: #e65100;
+    --orange-bg: #fff3e0;
+    --orange-soft: #ffe3d3; /* "Confirm OUT" and "GPS OFF" fill */
 }
 
-/* ---------- Base (all sizes) ---------- */
+
+/* =====================================================================
+   2. SHARED STYLES (all screen sizes)
+   ===================================================================== */
+
 body {
     font-family: "Inter", sans-serif;
     background-color: var(--cream);
+    color: var(--navy);
 }
 
-/* Stacks header/content on tablet and phone; becomes a row on desktop */
+/* Stacks header + main vertically and fills the screen height */
 .app-shell {
     display: flex;
     flex-direction: column;
@@ -24,54 +49,219 @@ body {
     color: var(--muted);
 }
 
-/* Buttons: colors shared, sizes set per layout below */
-.btn-vango-primary,
-.btn-vango-outline {
-    border: 1.5px solid var(--navy);
-    border-radius: 0.75rem;
-    font-weight: 700;
-    transition: background-color 0.2s, color 0.2s;
+
+/* ---------- Header (navy bar with yellow bottom line) ---------- */
+.header {
+    position: relative;               /* the menu button is placed inside it */
+    display: flex;
+    align-items: center;
+    background-color: var(--navy);
+    border-bottom: 6px solid var(--yellow);
+    color: #fff;
 }
 
-.btn-vango-primary {
+.header-label {
+    margin: 0 0 0.25rem;
+    line-height: 1.2;
+}
+
+.header-title {
+    margin: 0;
+    font-weight: 800;
+}
+
+/* Back arrow (left side of the header) */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #fff;
+    line-height: 1;
+    text-decoration: none;
+}
+
+.back-btn:hover,
+.back-btn:focus-visible {
+    color: var(--yellow);
+}
+
+/* Menu button (right side of the header). The picture is images/nav-menu-btn.png */
+.menu-dropdown {
+    margin-left: auto;                /* pushes the button to the far right */
+}
+
+.menu-btn {
+    padding: 0;
+    border: 0;
+    background: none;
+    line-height: 0;                   /* removes the gap under the image */
+}
+
+.menu-btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+}
+
+.menu-icon {
+    display: block;
+    height: auto;
+}
+
+
+/* ---------- Menu panel (Figma "2 Menu") ----------
+   Cream card, navy outline, yellow band + navy line on top,
+   then five white link buttons. */
+.menu-panel {
+    width: 15rem;
+    min-width: 0;                     /* cancels Bootstrap's 10rem minimum */
+    margin-top: 0.5rem !important;
+    padding: 0 0 0.75rem;
+    overflow: hidden;                 /* keeps the top band inside the rounded corners */
+    background-color: var(--cream);
+    border: 1px solid var(--navy);
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1.5rem rgba(11, 37, 69, 0.25);
+}
+
+/* Yellow band (26px) + navy line (6px) at the top of the panel */
+.menu-panel::before {
+    content: "";
+    display: block;
+    height: 2rem;
+    background-color: var(--yellow);
+    border-bottom: 6px solid var(--navy);
+}
+
+.menu-panel li {
+    margin: 0 0.75rem 0.625rem;
+}
+
+.menu-panel li:first-child {
+    margin-top: 0.9rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.5rem;
+    background-color: #fff;
+    border: 1px solid var(--field-border);
+    border-radius: 0.5rem;
+    color: #13315c;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.menu-item .bi {
+    font-size: 1.125rem;
+}
+
+.menu-item:hover,
+.menu-item:focus-visible {
     background-color: var(--navy);
     color: #fff;
 }
 
-    .btn-vango-primary:hover,
-    .btn-vango-primary:focus-visible {
-        background-color: #123663;
-        border-color: #123663;
-        color: #fff;
-    }
-
-.btn-vango-outline {
-    background-color: #fff;
-    color: var(--navy);
+/* The page you are on gets a darker outline (see "Open Live Van Map" in Figma) */
+.menu-item[aria-current="page"] {
+    box-shadow: 0 0 0 1px var(--navy);
 }
 
-    .btn-vango-outline:hover,
-    .btn-vango-outline:focus-visible {
-        background-color: var(--navy);
-        color: #fff;
-    }
 
-/* Status pills */
-.pill {
-    padding: 0.375rem 1rem;
-    border-radius: 999px;
-    font-size: 0.875rem;
+/* ---------- Main area ---------- */
+.main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* All page content sits in this column */
+.content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;                     /* lets .page-action drop to the bottom on phones */
+    gap: 1rem;
+    width: 100%;
+    margin: 0 auto;
+}
+
+
+/* ---------- Cards ---------- */
+.card-vanit {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 0.75rem;
+}
+
+
+/* A card that only holds van rows: no gap, the rows have their own spacing */
+.card-list {
+    gap: 0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+}
+
+/* ---------- Van list (rows inside a card) ---------- */
+.van-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.6rem 0;
+}
+
+.van-row + .van-row {
+    border-top: 1px solid var(--line);
+}
+
+.van-plate {
+    margin: 0;
+    font-weight: 700;
+    color: #1a1f2b;
+}
+
+.van-info {
+    margin: 0;
+    color: var(--muted);
+}
+
+/* Section titles above a card ("WAITING", "Departed") */
+.section-label {
+    margin: 0.5rem 0 -0.5rem 0.25rem;
+    color: var(--muted);
+    font-size: 0.75rem;
     font-weight: 700;
 }
 
-.pill-in {
-    background-color: #e8f5e9;
-    color: #2e7d32;
+
+/* ---------- Status pills ---------- */
+.pill {
+    display: inline-block;
+    min-width: 5.25rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
 }
 
-.pill-out {
-    background-color: #fff3e0;
-    color: #e65100;
+.pill-in,
+.pill-waiting {
+    background-color: var(--green-bg);
+    color: var(--green);
+}
+
+.pill-out,
+.pill-eta {
+    background-color: var(--orange-bg);
+    color: var(--orange);
 }
 
 .pill-arrived {
@@ -79,53 +269,105 @@ body {
     color: #546e7a;
 }
 
-/* Form pages */
-.form-card {
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
+
+/* ---------- Buttons ---------- */
+.btn-vanit-primary,
+.btn-vanit-outline,
+.btn-vanit-out {
+    border: 1.5px solid var(--navy);
     border-radius: 0.75rem;
+    font-weight: 700;
+    transition: background-color 0.2s, color 0.2s;
 }
 
+.btn-vanit-primary {
+    background-color: var(--navy);
+    color: #fff;
+}
+
+.btn-vanit-primary:hover,
+.btn-vanit-primary:focus-visible {
+    background-color: var(--navy-hover);
+    border-color: var(--navy-hover);
+    color: #fff;
+}
+
+.btn-vanit-outline {
+    background-color: #fff;
+    color: var(--navy);
+}
+
+.btn-vanit-outline:hover,
+.btn-vanit-outline:focus-visible {
+    background-color: var(--navy);
+    color: #fff;
+}
+
+/* Orange button ("Confirm OUT") */
+.btn-vanit-out {
+    background-color: var(--orange);
+    border-color: var(--orange);
+    color: #fff;
+}
+
+.btn-vanit-out:hover,
+.btn-vanit-out:focus-visible {
+    background-color: #bf4300;
+    border-color: #bf4300;
+    color: #fff;
+}
+
+/* Wrapper for the main button at the bottom of a page */
+.page-action {
+    margin-top: 0.5rem;
+}
+
+
+/* ---------- Forms ---------- */
 .field-label {
     display: block;
     margin-bottom: 0.5rem;
-    font-size: 1rem;
     font-weight: 600;
     color: var(--muted);
 }
 
-.input-vango {
-    padding: 0.875rem 1.125rem;
-    border: 1px solid #d9e0ea;
+.input-vanit {
+    padding: 0.6875rem 0.875rem;
+    border: 1.5px solid var(--field-border);
     border-radius: 0.625rem;
-    font-size: 1.125rem;
 }
 
-    .input-vango::placeholder {
-        color: #7a8594;
-        opacity: 1;
-    }
+.input-vanit::placeholder {
+    color: #7a8594;
+    opacity: 1;
+}
 
-/* Role toggle (Driver / Operator) */
+.input-vanit:focus {
+    border-color: var(--navy);
+    box-shadow: none;
+}
+
+/* Two-choice toggle (Driver / Operator, Lipa / San Pablo).
+   Each pair of radio buttons needs the same name="", and every
+   id must match its label's for="". */
 .role-toggle {
     display: flex;
     gap: 0.25rem;
     padding: 0.25rem;
-    background-color: #e9eef5;
+    background-color: var(--toggle-bg);
+    border: 1px solid var(--field-border);
     border-radius: 0.625rem;
 }
 
 .role-option {
     flex: 1;
-    padding: 0.75rem 0;
+    margin-bottom: 0;
+    padding: 0.625rem 0;
     border-radius: 0.5rem;
     text-align: center;
-    font-size: 1.125rem;
     font-weight: 700;
     color: var(--muted);
     cursor: pointer;
-    margin-bottom: 0;
 }
 
 .btn-check:checked + .role-option {
@@ -138,214 +380,433 @@ body {
     outline-offset: 2px;
 }
 
-/* ---------- Desktop (1281px and up) ---------- */
+
+/* ---------- Start page (index.html) ---------- */
+.start {
+    align-items: center;
+}
+
+.logo {
+    width: 100%;
+    max-width: 24rem;
+    height: auto;
+}
+
+
+/* ---------- Map placeholder (live-map.html) ----------
+   Drawn with CSS only: two "roads" and the van dots.
+   Replace the whole .map-box with a real map later. */
+.map-box {
+    position: relative;
+    height: 14.375rem;
+    overflow: hidden;
+    background-color: #e8efe6;
+    border: 1px solid #d5dfd3;
+    border-radius: 0.75rem;
+}
+
+.map-box::before,                     /* horizontal road */
+.map-box::after {                     /* vertical road */
+    content: "";
+    position: absolute;
+    background-color: #d5dfd3;
+}
+
+.map-box::before {
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 0.75rem;
+}
+
+.map-box::after {
+    top: 0;
+    bottom: 0;
+    left: 38%;
+    width: 0.75rem;
+}
+
+.map-dot {
+    position: absolute;
+    z-index: 1;
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 2px solid #fff;
+    border-radius: 50%;
+}
+
+.map-dot-in  { background-color: var(--green); }
+.map-dot-out { background-color: var(--orange); }
+
+
+/* ---------- Passenger counter:  [ - ]   7   [ + ] ---------- */
+.counter-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counter-btn {
+    width: 3.6rem;                    /* width and height must match to stay a circle */
+    height: 3.6rem;
+    border: 1.5px solid var(--navy);
+    border-radius: 50%;
+    font-size: 1.75rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.counter-minus {
+    background-color: #fff;
+    color: var(--navy);
+}
+
+.counter-plus {
+    background-color: var(--navy);
+    color: #fff;
+}
+
+.counter-btn:hover:not(:disabled) {
+    background-color: var(--navy-hover);
+    color: #fff;
+}
+
+/* Minus is disabled at 0, plus is disabled at full capacity */
+.counter-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.counter-number {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--navy);
+}
+
+/* Capacity bar: Bootstrap's .progress, recolored to match Figma */
+.capacity-bar {
+    height: 0.6rem;
+    background-color: var(--toggle-bg);
+}
+
+.capacity-bar .progress-bar {
+    background-color: var(--yellow);
+}
+
+
+/* ---------- GPS sharing page ---------- */
+.gps-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+}
+
+.gps-banner::before {                 /* the colored dot */
+    content: "";
+    width: 0.7rem;
+    height: 0.7rem;
+    border-radius: 50%;
+    background-color: currentColor;
+}
+
+.gps-on {
+    background-color: var(--green-bg);
+    color: var(--green);
+}
+
+.gps-off {
+    background-color: var(--orange-soft);
+    color: var(--orange);
+}
+
+/* Latitude / Longitude / Sent rows */
+.data-row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.data-value {
+    font-weight: 700;
+}
+
+/* "Status: Enabled" box. Click it to switch GPS on or off. */
+.status-btn {
+    width: 100%;
+    padding: 0.75rem;
+    border: 3px solid;
+    border-radius: 0.75rem;
+    font-weight: 700;
+}
+
+.gps-on-btn {
+    background-color: var(--green-bg);
+    border-color: #d3ecd5;
+    color: var(--green);
+}
+
+.gps-off-btn {
+    background-color: var(--orange-bg);
+    border-color: var(--orange-soft);
+    color: var(--orange);
+}
+
+
+/* ---------- Confirmation pop-up ("Set status to IN?") ---------- */
+.modal-confirm .modal-content {
+    padding: 1.25rem;
+    gap: 0.75rem;
+    border: 0;
+    border-radius: 0.75rem;
+}
+
+.modal-confirm .modal-title {
+    font-size: 1.0625rem;
+    font-weight: 800;
+    color: #13315c;
+}
+
+.btn-confirm,
+.btn-cancel {
+    padding: 0.6rem 1rem;
+    border-radius: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+}
+
+.btn-confirm-in {
+    background-color: var(--green-bg);
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+.btn-confirm-out {
+    background-color: var(--orange-soft);
+    border: 1px solid var(--orange);
+    color: var(--orange);
+}
+
+.btn-cancel {
+    background-color: var(--cream);
+    border: 1px solid #9aa5b1;
+    color: var(--muted);
+}
+
+.btn-confirm:hover,
+.btn-cancel:hover {
+    filter: brightness(0.96);
+}
+
+
+/* ---------- Toast notification (see toast.js) ---------- */
+.toast-vanit {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    z-index: 1080;                    /* above the menu dropdown (1000) and modals (1055) */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: calc(100% - 2rem);
+    padding: 0.5rem 0.875rem;
+    background-color: var(--green-bg);
+    border: 1px solid #a5d6a7;
+    border-radius: 0.5rem;
+    color: var(--navy);
+    font-size: 0.8125rem;
+    font-weight: 600;
+
+    /* Hidden state: slightly above and invisible */
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, -1rem);
+    transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+}
+
+.toast-vanit.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+}
+
+.toast-vanit .bi {
+    color: #43a047;
+    font-size: 1.125rem;
+}
+
+
+/* =====================================================================
+   3. DESKTOP ONLY (1281px and up)
+   There is no desktop frame in Figma, so this is the phone layout
+   scaled up and centered in a column.
+   ===================================================================== */
 @media (min-width: 1281px) {
 
-    /* Header */
+    /* Header and main share the same side padding so their left edges line up.
+       The content column is 60rem wide and centered. */
     .header {
-        position: relative;
-        padding: 2.5rem 7.8rem 2rem;
-        background-color: var(--navy);
-        border-bottom: 6px solid var(--yellow);
-        color: #fff;
+        min-height: 9rem;
+        padding: 2rem max(2rem, calc((100% - 60rem) / 2));
     }
 
-    .header-label {
-        font-size: 0.75rem;
-        line-height: 1.2;
-    }
-
-    .header-title {
-        font-size: 1.25rem;
-        font-weight: 800;
-    }
-
-    .menu-icon {
-        width: 3.75rem;
-        height: auto;
-        display: block;
-    }
-
-    .menu-btn {
-        background: none;
-        border: 0;
-        padding: 0;
-    }
-
-    .menu-dropdown {
-        position: absolute;
-        top: 25%;
-        right: 7.8rem;
-        z-index: 1030;
-    }
-
-    /* Main */
     .main {
-        padding: 11.25rem 7.8rem 7.8rem;
-    }
-
-    .main-top {
-        padding-top: 4rem;
+        padding: 3rem max(2rem, calc((100% - 60rem) / 2)) 4rem;
     }
 
     .content {
-        max-width: auto;
+        gap: 1.5rem;
     }
 
-    .content-wide {
-        max-width: auto;
+    .header-label { font-size: 1rem; }
+    .header-title { font-size: 2rem; }
+
+    .back-btn {
+        margin-right: 1.5rem;
+        font-size: 2.25rem;
     }
 
-    .logo {
-        max-width: 40.125rem;
-        width: 100%;
-        height: auto;
+    .menu-icon {
+        width: 3.25rem;
     }
 
-    .text-muted-custom {
-        font-size: 1rem;
+    .menu-panel {
+        width: 17rem;
     }
 
-    .btn-vango-primary,
-    .btn-vango-outline {
+    .menu-item {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9375rem;
+    }
+
+    .card-vanit {
+        gap: 1.5rem;
+        padding: 2rem;
+    }
+
+    .van-row {
+        padding: 1rem 0;
+    }
+
+    .van-plate { font-size: 1.375rem; }
+    .van-info  { font-size: 1rem; }
+    .section-label { font-size: 0.875rem; }
+
+    .pill {
+        min-width: 6.5rem;
+        padding: 0.375rem 1rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-vanit-primary,
+    .btn-vanit-outline,
+    .btn-vanit-out {
         display: block;
+        max-width: 40rem;
         margin-left: auto;
         margin-right: auto;
         padding: 1.125rem 1rem;
         font-size: 1.25rem;
     }
 
-    .page-title {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #13315c;
+    .field-label { font-size: 1rem; }
+
+    .input-vanit {
+        padding: 0.875rem 1.125rem;
+        font-size: 1.125rem;
     }
 
-    /* Van list (card) */
-    .van-list {
-        background-color: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.75rem;
-        overflow: hidden;
+    .role-option {
+        padding: 0.75rem 0;
+        font-size: 1.125rem;
     }
 
-    .van-row {
-        padding: 1.25rem 1.5rem;
+    .start { padding-top: 6rem; }
+    .tagline { margin-bottom: 3rem; }
+    .logo  { max-width: 40rem; }
+
+    .map-box { height: 26rem; }
+
+    .counter-btn {
+        width: 4.5rem;
+        height: 4.5rem;
+        font-size: 2rem;
     }
 
-        .van-row + .van-row {
-            border-top: 1px solid #e5e7eb;
-        }
+    .counter-number { font-size: 3.5rem; }
 
-    .van-plate {
-        font-size: 1.375rem;
-        font-weight: 700;
-        color: #1a1f2b;
-    }
+    .gps-banner { font-size: 1.125rem; }
+    .data-row   { font-size: 1.125rem; }
 
-    /* Form pages */
-    .form-card {
-        gap: 1.5rem;
-        padding: 2rem;
-    }
+    .modal-confirm { max-width: 24rem; }
+    .modal-confirm .modal-title  { font-size: 1.25rem; }
+    .btn-confirm, .btn-cancel    { font-size: 1.0625rem; }
 }
 
-/* ---------- Tablet and phone (1280px and down) ---------- */
+
+/* =====================================================================
+   4. TABLET AND PHONE (1280px and down)
+   Sizes taken from the Figma phone frames (375px wide).
+   ===================================================================== */
 @media (max-width: 1280px) {
 
-    /* The header replaces the page heading here */
-    .custom-block {
-        display: none;
-    }
-
-    /* Header */
     .header {
-        padding: 2.5rem 1.25rem 2rem;
-        background-color: var(--navy);
-        border-bottom: 6px solid var(--yellow);
-        color: #fff;
+        min-height: 7.5rem;           /* 120px in Figma, including the yellow line */
+        padding: 1rem 1.25rem 0.75rem;
     }
 
-    .header-label {
-        font-size: 0.75rem;
-        line-height: 1.2;
+    .main {
+        padding: 1.25rem 1.25rem 2rem;
     }
 
-    .header-title {
-        font-size: 1.25rem;
-        font-weight: 800;
+    .content {
+        max-width: 40rem;             /* keeps cards readable on tablets */
+    }
+
+    .header-label { font-size: 0.75rem; }
+    .header-title { font-size: 1.5rem; }
+
+    .back-btn {
+        margin-right: 0.75rem;
+        font-size: 1.5rem;
     }
 
     .menu-icon {
-        width: 3.75rem;
-        height: auto;
+        width: 1.8rem;
+    }
+
+    .van-plate { font-size: 1.0625rem; }
+    .van-info  { font-size: 0.8125rem; }
+
+    .field-label { font-size: 0.75rem; }
+
+    .input-vanit { font-size: 0.875rem; }
+
+    .role-option { font-size: 0.875rem; }
+
+    .btn-vanit-primary,
+    .btn-vanit-outline,
+    .btn-vanit-out {
         display: block;
-    }
-
-    .menu-btn {
-        background: none;
-        border: 0;
-        padding: 0;
-    }
-
-    .menu-dropdown {
-        position: absolute;
-        top: 1.5rem;
-        right: 1rem;
-        z-index: 1030;
-    }
-
-    /* Main */
-    .main,
-    .main-top {
-        padding: 1.25rem;
-    }
-
-    .logo {
-        margin-top: 5rem;
-    }
-
-    .btn-vango-primary,
-    .btn-vango-outline {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        max-width: 40rem;
-        padding: 0.8rem 1rem;
+        padding: 0.75rem 1rem;
         font-size: 1rem;
     }
 
-    /* Van list (plain, no card) */
-    .van-list {
-        background-color: #fff;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.75rem;
-        overflow: hidden;
+    /* The main button sits at the bottom of the screen, like Figma */
+    .page-action {
+        margin-top: auto;
     }
 
-    .van-row {
-        padding: 1rem 1.5rem;
-    }
+    .start { padding-top: 10rem; }
+    .tagline { margin-bottom: 7rem; }
+    .start .btn { max-width: 40rem; }
 
-        .van-row + .van-row {
-            border-top: 1px solid #e5e7eb;
-        }
+    .counter-number { font-size: 3rem; }
 
-    .van-plate {
-        font-size: 1rem;
-        font-weight: 700;
-        color: #1a1f2b;
-    }
+    .gps-banner { font-size: 0.9375rem; }
+    .data-row   { font-size: 0.9375rem; }
 
-    .van-row .text-muted-custom {
-        font-size: 1rem;
-    }
-
-    
-
-    /* Form pages */
-    .form-card {
-        gap: 1rem;
-        padding: 1rem;
-    }
+    .modal-confirm { max-width: 18rem; }
 }

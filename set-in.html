@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VanIt | Set IN</title>
+
+    <!-- Bootstrap (layout + dropdown/modal), Bootstrap Icons, Inter font, then our own style.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="back-btn" aria-label="Back"><i class="bi bi-chevron-left"></i></a>
+            <div>
+                <p class="header-label">Van ABC 1234</p>
+                <h1 class="header-title">Arrived at Terminal</h1>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="main">
+            <div class="content">
+
+                <!-- Route toggle (same pattern as the Role toggle on Create an Account) -->
+                <div class="card-vanit">
+                    <div>
+                        <span class="field-label">Route</span>
+                        <div class="role-toggle">
+                            <input type="radio" class="btn-check" name="route" id="route-lipa" value="lipa" checked>
+                            <label class="role-option" for="route-lipa">Lipa</label>
+
+                            <input type="radio" class="btn-check" name="route" id="route-san-pablo" value="san-pablo">
+                            <label class="role-option" for="route-san-pablo">San Pablo</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Opens the confirmation pop-up below -->
+                <div class="page-action">
+                    <button type="button" class="btn btn-vanit-primary w-100"
+                            data-bs-toggle="modal" data-bs-target="#confirm-in">Confirm IN</button>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+
+    <!-- Confirmation pop-up: "Yes, Set IN" goes to the passengers page -->
+    <div class="modal fade" id="confirm-in" tabindex="-1" aria-labelledby="confirm-in-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-confirm">
+            <div class="modal-content">
+                <h2 class="modal-title" id="confirm-in-title">Set status to IN?</h2>
+                <p class="text-muted-custom small mb-1">Van ABC 1234 will be marked as arrived. The IN time will be recorded in the arrived history.</p>
+                <a href="passengers.html" class="btn btn-confirm btn-confirm-in">Yes, Set IN</a>
+                <button type="button" class="btn btn-cancel" data-bs-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

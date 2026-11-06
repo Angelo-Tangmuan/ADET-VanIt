@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VanIt | Passengers</title>
+
+    <!-- Bootstrap (layout + dropdown/modal), Bootstrap Icons, Inter font, then our own style.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+        <!-- Header -->
+        <header class="header">
+            <div>
+                <p class="header-label">Van ABC 1234</p>
+                <h1 class="header-title">Passengers</h1>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="main">
+            <div class="content">
+
+                <!-- Counter card -->
+                <div class="card-vanit" id="counter-card" data-capacity="16" data-start="0">
+                    <span class="field-label mb-0">Boarded</span>
+
+                    <div class="counter-row">
+                        <button type="button" id="minus-btn" class="counter-btn counter-minus" aria-label="Remove one passenger">&minus;</button>
+                        <span id="count" class="counter-number" aria-live="polite">0</span>
+                        <button type="button" id="plus-btn" class="counter-btn counter-plus" aria-label="Add one passenger">+</button>
+                    </div>
+
+                    <p class="text-muted-custom small text-center mb-0">Tap + for each boarding passenger</p>
+                </div>
+
+                <!-- Capacity card. The bar is Bootstrap's progress bar, filled by the script below -->
+                <div class="card-vanit">
+                    <span class="field-label mb-0">Capacity</span>
+                    <div class="progress capacity-bar">
+                        <div class="progress-bar" id="capacity-fill" style="width: 0%"></div>
+                    </div>
+                    <p class="van-info" id="capacity-text">0 of 16</p>
+                </div>
+
+                <div class="page-action">
+                    <a href="gps-sharing.html" class="btn btn-vanit-primary w-100">Next: GPS sharing</a>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Passenger counter. Frontend only: the number resets when the page reloads. -->
+    <script>
+        // Seat count and starting number are set in the HTML:
+        //   <div id="counter-card" data-capacity="16" data-start="0">
+        const card = document.getElementById("counter-card");
+        const CAPACITY = Number(card.dataset.capacity);
+        let count = Number(card.dataset.start);
+
+        const countEl = document.getElementById("count");
+        const fillEl = document.getElementById("capacity-fill");
+        const textEl = document.getElementById("capacity-text");
+        const minusBtn = document.getElementById("minus-btn");
+        const plusBtn = document.getElementById("plus-btn");
+
+        // Redraws the number, the bar and the text so they always agree
+        function update() {
+            countEl.textContent = count;
+            fillEl.style.width = (count / CAPACITY * 100) + "%";
+            textEl.textContent = count + " of " + CAPACITY;
+
+            // Stop at 0 and at full capacity
+            minusBtn.disabled = count <= 0;
+            plusBtn.disabled = count >= CAPACITY;
+        }
+
+        minusBtn.addEventListener("click", function () {
+            count = count - 1;
+            update();
+        });
+
+        plusBtn.addEventListener("click", function () {
+            count = count + 1;
+            update();
+        });
+
+        update();
+    </script>
+</body>
+</html>

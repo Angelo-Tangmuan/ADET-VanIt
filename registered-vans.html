@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VanIt | Registered Vans</title>
+
+    <!-- Bootstrap (layout + dropdown/modal), Bootstrap Icons, Inter font, then our own style.css -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-shell">
+        <!-- Header -->
+        <header class="header">
+            <a href="admin.html" class="back-btn" aria-label="Back"><i class="bi bi-chevron-left"></i></a>
+            <div>
+                <p class="header-label">Admin</p>
+                <h1 class="header-title">Registered Vans</h1>
+            </div>
+
+            <!-- Menu (same on every admin page). Button picture: images/nav-menu-btn.png -->
+            <div class="dropdown menu-dropdown">
+                <button class="menu-btn" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false" aria-label="Open menu">
+                    <img src="images/nav-menu-btn.png" alt="" class="menu-icon">
+                </button>
+
+                <ul class="dropdown-menu dropdown-menu-end menu-panel">
+                    <li><a class="menu-item" href="create-account.html"><i class="bi bi-person-circle"></i>Create Account</a></li>
+                    <li><a class="menu-item" href="register-van.html"><i class="bi bi-truck-front-fill"></i>Register a Van</a></li>
+                    <li><a class="menu-item" href="registered-vans.html" aria-current="page"><i class="bi bi-card-list"></i>View Registered Vans</a></li>
+                    <li><a class="menu-item" href="live-map.html"><i class="bi bi-geo-alt-fill"></i>Open Live Van Map</a></li>
+                    <li><a class="menu-item" href="export-history.html"><i class="bi bi-box-arrow-up-right"></i>Export IN/OUT History</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <!-- Main content -->
+        <main class="main">
+            <div class="content">
+
+                <!-- Plate + driver/operator on the left, route on the right.
+                     To add a van, copy one van-row. -->
+                <div class="card-vanit card-list">
+                    <div class="van-row">
+                        <div>
+                            <p class="van-plate">ABC 1234</p>
+                            <p class="van-info">Driver: Jungkick S.</p>
+                        </div>
+                        <span class="van-info">Lipa</span>
+                    </div>
+                    <div class="van-row">
+                        <div>
+                            <p class="van-plate">XYZ 5678</p>
+                            <p class="van-info">Operator: Banana T.</p>
+                        </div>
+                        <span class="van-info">San Pablo</span>
+                    </div>
+                    <div class="van-row">
+                        <div>
+                            <p class="van-plate">DEF 9012</p>
+                            <p class="van-info">Driver: Applelina N.</p>
+                        </div>
+                        <span class="van-info">Lipa</span>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
